@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>React Practice</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+      .five-day{
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 10px;
+      }
+      .day{
+        display: grid;
+        place-items: center;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!--
+      INSTRUCTIONS:
+
+      Rather than manually rendering five different DailyWeather components,
+      we have separated out data into an array called weather.
+
+      And then we map over the objects inside of that array to display the forecast
+      for any individual day.   However, we only have data for 2 of the 5 days.
+
+      1) Add data for all five days
+
+      Make sure you can see the FiveDayForecast on the screen.
+     -->
+    <script type="text/babel">
+      const weather = [
+                        {
+                          date:     "March 1",
+                          max_temp: 90,
+                          min_temp: 80
+                        },
+                        {
+                          date:     "March 2",
+                          max_temp: 92,
+                          min_temp: 84
+                        },
+                        {
+                          date:     "March 3",
+                          max_temp: 90,
+                          min_temp: 80
+                        },
+                        {
+                          date:     "March 4",
+                          max_temp: 99,
+                          min_temp: 90
+                        },
+                        {
+                          date:     "March 5",
+                          max_temp: 89,
+                          min_temp: 80
+                        }
+                      ]
+
+      const DailyWeather = (props) => {
+        return(
+          <div className="day">
+            <h3>{props.date}</h3>
+            <h5>High: {props.max_temp} °F</h5>
+            <h5>Low: {props.min_temp} °F</h5>
+          </div>
+        )
+      }
+
+      const FiveDayForecast = () => {
+        return(
+          <div className="five-day">
+            {
+              weather.map(day => <DailyWeather {...day} key={day.date}/>)
+            }
+          </div>
+        )
+      }
+
+      ReactDOM.render(
+        <FiveDayForecast/>,
+        document.getElementById('root')
+      )
+    </script>
+  </body>
+</html>
